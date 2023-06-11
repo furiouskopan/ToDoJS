@@ -33,8 +33,17 @@
             <!-- <div class="todo"></div> -->
         </ul>
     </div>
-
-
+    <div class="timer-container">
+        <div id="timer">25:00</div>
+        <button class="button-timer" id="pause-button">I I</button>
+        <!-- <button onclick="pauseTimer()" class="button-timer">Pause</button> -->
+    </div>
+    <div class="control-container">
+        <button onclick="startTimer()" class="button-timer">Start</button>
+        <button onclick="resetTimer()" class="button-timer">Reset</button>
+        <div id="status"></div>
+    </div>
     <script src="app.js"></script>
+    <audio id="audio" src="chime-sound-7143.mp3" autoplay></audio>
 </body>
 </html>
