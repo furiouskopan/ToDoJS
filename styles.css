@@ -19,20 +19,20 @@ header{
     color: #fe1c42;
     margin-top: 50px;
     font-size: 1.8rem;
-    /* text-decoration:underline; */
+    text-decoration:underline;
     cursor:default;
-
 }
 
 h1:hover{
     text-decoration:underline;
 }
+
 input:hover{
     opacity: 1;
 }
 
 header, form{
-    min-height: 15vh;
+    min-height: 12vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,7 @@ form button{
     cursor: pointer;
     transition: all 0.3s ease;
 }
-form button:hover{
+button:hover{
     background: #9d4d4d00;
     color: white;
 }
@@ -155,4 +155,56 @@ select{
 .select:hover::after{
     background: rgba(255, 255, 255, 0);
     color: #A7233A;
+}
+
+/* Timer */
+.timer-container {
+    margin-top: 30px;
+    margin-left: 50px;
+    position: fixed;
+    top: 40px; 
+    left: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.control-container {
+    position: fixed;
+    top: 170px; 
+    left: 90px; 
+    margin-top: 10px;
+}
+
+#timer {
+    font-size: 72px;
+}
+#pause-button {
+    font-size: 2.5rem;
+    padding-bottom: 0.25rem;
+    padding: 7px 17px;
+    margin-left: 30px;
+    background: #9d4d4d00;
+    color: white;
+    position: fixed;
+    left: 261px; 
+
+}
+#status{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 12px;
+}
+#pause-button:hover {
+    background: #A7233A;
+}
+.button-timer {
+    padding: 10px 20px;
+    margin: 0 13px;
+    padding: 0.7rem;
+    font-size: 1.5rem;
+    border: none;
+    background: #A7233A;
+    color: rgba(255, 255, 255, 0.863);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
