@@ -170,3 +170,96 @@ function removeLocalTodos(todo){
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 // localStorage.clear()
+
+//Pomodoro Timer
+let workTime = 25; // in minutes
+let breakTime = 5; // in minutes
+
+let timerElement = document.getElementById('timer');
+let statusElement = document.getElementById('status');
+let chimeAudio = new Audio('chime-sound-7143.mp3');
+
+let isWorkTime = true;
+let timeLeft = workTime * 60; // converting to seconds
+let timerInterval = null;
+
+document.getElementById('pause-button').addEventListener('click', pauseTimer);
+
+function updateTimerDisplay() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function updateStatusDisplay() {
+    if (timerInterval !== null) {
+        statusElement.textContent = isWorkTime ? 'Working' : 'Having a break';
+    } else {
+        statusElement.textContent = '';
+    }
+}
+
+function showNotification(message) {
+    if (!("Notification" in window)) {
+        console.log("This browser does not support desktop notification");
+    } else if (Notification.permission === "granted") {
+        new Notification(message);
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                new Notification(message);
+            }
+        });
+    }
+}
+
+function switchTimer() {
+    isWorkTime = !isWorkTime;
+    timeLeft = (isWorkTime ? workTime : breakTime) * 60;
+    updateStatusDisplay();
+
+    if (isWorkTime) {
+        showNotification('Work time started!');
+    } else {
+        showNotification('Break time started!');
+    }
+
+    chimeAudio.play();
+}
+
+function timerTick() {
+    if (timeLeft > 0) {
+        timeLeft--;
+        updateTimerDisplay();
+    } else {
+        switchTimer();
+    }
+}
+
+function startTimer() {
+    if (timerInterval === null) {
+        timerInterval = setInterval(timerTick, 1000); // 1000 milliseconds = 1 second
+    }
+    updateStatusDisplay();
+}
+
+function resetTimer() {
+    if (timerInterval !== null) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    isWorkTime = true;
+    timeLeft = workTime * 60;
+    updateTimerDisplay();
+    updateStatusDisplay();
+}
+
+function pauseTimer() {
+    if (timerInterval !== null) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+}
+
+updateStatusDisplay();
